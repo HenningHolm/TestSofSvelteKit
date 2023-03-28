@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import Youtube from "../apps/youtube/youtube.svelte";
+	import Youtube2 from "../apps/youtube2.svelte/youtube2.svelte";
   // import dat from "dat.gui";
   // export const prerender = true;
   onMount(() => {
@@ -11,6 +12,8 @@
 
 let PianoList = new Array<any>();
 let YoutubeList = new Array<any>();
+let YoutubeList2 = new Array<any>();
+
 
   function addWindowElm(list: any) {
     list = [...list, new Date().getTime()];
@@ -41,7 +44,13 @@ let YoutubeList = new Array<any>();
           PianoList = addWindowElm(PianoList);
         }}>Piano</button
       >
-
+      <button
+      id="YoutubeBtn2"
+      class="btn btn-secondary btn-sm"
+      on:click={() => {
+        YoutubeList2 = addWindowElm(YoutubeList2);
+      }}>Youtube2</button
+      >
       <button
       id="YoutubeBtn"
       class="btn btn-secondary btn-sm"
@@ -56,6 +65,12 @@ let YoutubeList = new Array<any>();
         listIndex={index}
       />  
       {/each}
+      {#each YoutubeList2 as youtube2, index (youtube2)}
+      <Youtube2
+      on:close={() => (YoutubeList2 = removeWindowElm(index, YoutubeList2))}
+      listIndex={index}
+    />  
+    {/each}
       <!-- {#each PianoList as piano, index (piano)}
     <Piano
       on:close={() => (PianoList = removeWindowElm(index, PianoList))}
